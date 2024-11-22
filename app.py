@@ -1,7 +1,8 @@
 from flask import Flask
 from flask_migrate import Migrate
-from models.models import db
 from config import Config
+from models.models import db
+from routes.userRoute import user_bp
 
 def create_app():
     app = Flask(__name__)
@@ -10,5 +11,7 @@ def create_app():
     # Inicializar extensiones
     db.init_app(app)
     Migrate(app, db)
+
+    app.register_blueprint(user_bp)
 
     return app

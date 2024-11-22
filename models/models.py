@@ -61,6 +61,7 @@ class Category(db.Model):
 class Question(db.Model):
     __tablename__ = "questions"
     idQuestion = Column(Integer, primary_key=True, autoincrement=True)
+    idCategory = Column(Integer, ForeignKey("categories.idCategory"), nullable=False)  # Agregar clave foránea
     content = Column(String(200), nullable=False)
 
     category = relationship("Category", back_populates="questions")
