@@ -34,7 +34,7 @@ def get_answer_by_id(id):
 def create_answer():
     data = request.json
 
-    required_fields = ['idAnswer', 'idQuestion', 'answer', 'isCorrect']
+    required_fields = ['idQuestion', 'answer', 'isCorrect']
     if not all(field in data for field in required_fields):
         return jsonify({'error': 'Missing required fields'}), 400
 

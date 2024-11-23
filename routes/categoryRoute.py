@@ -11,7 +11,7 @@ def get_categories():
     return jsonify([
         {
             'id': u.idCategory,
-            'idMonster': u.idMonster,
+            'idMonsters': u.idMonsters,
             'category': u.category
         }
         for u in categories
@@ -23,7 +23,7 @@ def get_category_by_id(id):
     if category:
         return jsonify({
             'id': category.idCategory,
-            'idMonster': category.idMonster,
+            'idMonsters': category.idMonsters,
             'category': category.category
         }), 200
     return jsonify({'error': 'Category not found'}), 404
@@ -51,7 +51,7 @@ def update_category(id):
     if update_category:
         return jsonify({
             'id': update_category.idCategory,
-            'idMonster': update_category.idMonster,
+            'idMonsters': update_category.idMonsters,
             'category': update_category.category
         }), 200
     return jsonify({'error': 'Category not found'}), 404
