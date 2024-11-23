@@ -79,7 +79,7 @@ def update_user(id):
         }), 200
     return jsonify({'error': 'User not found'}), 404
 
-@user_bp.route('/users/<int:id>', methods=['DELETE'])
+@user_bp.route('/<int:id>', methods=['DELETE'])
 def delete_user(id):
     if base_service.delete(id):
         return jsonify({'message': 'User deleted successfully'})
