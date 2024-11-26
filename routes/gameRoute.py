@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
-from models.models import Game
+from models.models import Game, User, Monsters
 from services.baseService import BaseService
+from extensions import db
 
 base_service = BaseService(Game)
 game_bp = Blueprint('game_bp', __name__, url_prefix='/api/games')
@@ -42,11 +43,11 @@ def create_game():
 
     new_game = base_service.create(**data)
     return jsonify({
-            'id': new_game.idGame,
-            'idUser': new_game.idUser,
-            'startDate': new_game.startDate,
-            'endDate': new_game.endDate,
-            'finalScore': new_game.finalScore
+        'id': new_game.idGame,
+        'idUser': new_game.idUser,
+        'startDate': new_game.startDate,
+        'endDate': new_game.endDate,
+        'finalScore': new_game.finalScore
     }), 201
 
 @game_bp.route('/<int:id>', methods=['PUT'])

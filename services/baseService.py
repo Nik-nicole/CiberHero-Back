@@ -32,3 +32,13 @@ class BaseService:
         db.session.delete(record)
         db.session.commit()
         return True
+    
+    def create_with_relationships(self, model, relationships=[]):
+        db.session.add(model)
+        db.session.flush()
+
+        for relationship in relationships:
+            db.session.add(relationship)
+
+        db.session.commit()
+        return model
