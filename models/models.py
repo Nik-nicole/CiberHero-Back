@@ -14,20 +14,18 @@ class User(db.Model):
     score = db.Column(db.Integer, nullable=False)
 
     games = relationship("Game", back_populates="user", cascade="all, delete-orphan")
-    game_has_monsters = relationship("GameHasMonsters", back_populates="user", cascade="all, delete-orphan")
-    game_has_levels = relationship("GameHasLevel", back_populates="user", cascade="all, delete-orphan")
-
+   
 class Game(db.Model):
     __tablename__ = "game"
     idGame = db.Column(db.Integer, primary_key=True, autoincrement=True)
     idUser = db.Column(db.Integer, ForeignKey("users.idUser", ondelete="CASCADE"), nullable=False)
+    idMonsters = db.Column(db.Integer, ForeignKey("monsters.idMonsters", ondelete="CASCADE"))
+    idLevel = db.Column(db.Integer, ForeignKey("level.idLevel", ondelete="CASCADE"))
     startDate = db.Column(Date, nullable=False)
     endDate = db.Column(Date, nullable=False)
     finalScore = db.Column(db.Integer, nullable=False)
 
     user = relationship("User", back_populates="games")
-    game_has_monsters = relationship("GameHasMonsters", back_populates="game")
-    game_has_levels = relationship("GameHasLevel", back_populates="game")
 
 class Level(db.Model):
     __tablename__ = "level"
@@ -35,7 +33,6 @@ class Level(db.Model):
     difficulty = db.Column(db.String(20), nullable=False)
 
     monsters = relationship("Monsters", back_populates="level")
-    game_has_levels = relationship("GameHasLevel", back_populates="level")
 
 class Monsters(db.Model):
     __tablename__ = "monsters"
@@ -46,7 +43,6 @@ class Monsters(db.Model):
 
     level = relationship("Level", back_populates="monsters")
     categories = relationship("Category", back_populates="monster")
-    game_has_monsters = relationship("GameHasMonsters", back_populates="monster")
 
 class Category(db.Model):
     __tablename__ = "categories"
@@ -74,26 +70,3 @@ class Answer(db.Model):
     isCorrect = db.Column(Boolean, nullable=False)
 
     question = relationship("Question", back_populates="answers")
-
-class GameHasMonsters(db.Model):
-    __tablename__ = "game_has_monsters"
-    idGameHasMonsters = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    idGame = db.Column(db.Integer, ForeignKey("game.idGame", ondelete="CASCADE"), nullable=False)
-    idUser = db.Column(db.Integer, ForeignKey("users.idUser", ondelete="CASCADE"), nullable=False)
-    idMonsters = db.Column(db.Integer, ForeignKey("monsters.idMonsters", ondelete="CASCADE"), nullable=False)
-    idLevel = db.Column(db.Integer, ForeignKey("level.idLevel", ondelete="CASCADE"), nullable=False)
-
-    game = relationship("Game", back_populates="game_has_monsters")
-    user = relationship("User", back_populates="game_has_monsters")
-    monster = relationship("Monsters", back_populates="game_has_monsters")
-
-class GameHasLevel(db.Model):
-    __tablename__ = "game_has_level"
-    idGameHasLevel = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    idGame = db.Column(db.Integer, ForeignKey("game.idGame", ondelete="CASCADE"), nullable=False)
-    idUser = db.Column(db.Integer, ForeignKey("users.idUser", ondelete="CASCADE"), nullable=False)
-    idLevel = db.Column(db.Integer, ForeignKey("level.idLevel", ondelete="CASCADE"), nullable=False)
-
-    game = relationship("Game", back_populates="game_has_levels")
-    user = relationship("User", back_populates="game_has_levels")
-    level = relationship("Level", back_populates="game_has_levels")
