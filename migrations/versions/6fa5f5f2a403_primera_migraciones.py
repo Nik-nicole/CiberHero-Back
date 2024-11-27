@@ -1,8 +1,8 @@
-"""Breakout Tables 4
+"""primera migraciones
 
-Revision ID: 19c771708a5a
+Revision ID: 6fa5f5f2a403
 Revises: 
-Create Date: 2024-11-26 14:40:02.599449
+Create Date: 2024-11-26 21:29:32.465772
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '19c771708a5a'
+revision = '6fa5f5f2a403'
 down_revision = None
 branch_labels = None
 depends_on = None
