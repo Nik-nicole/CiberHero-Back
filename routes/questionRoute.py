@@ -4,12 +4,12 @@ from services.baseService import BaseService
 from transformers import pipeline
 import os
 import random
-
+'''
 # Configuración del pipeline de Hugging Face
 api_key = os.getenv("API_KEY")  # Asegúrate de configurar esta variable de entorno correctamente
 if not api_key:
     raise ValueError("La API key de Hugging Face no está configurada.")
-
+'''
 # Usando un modelo preentrenado que soporte parafraseo específico
 nlp_pipeline = pipeline("text2text-generation", model="t5-base")  # Usamos el modelo T5, que es comúnmente utilizado para parafrasear
 
